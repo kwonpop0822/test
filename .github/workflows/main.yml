@@ -15,11 +15,14 @@ jobs:
         with:
           python-version: '3.x'
 
-      - name: Install pmbootstrap
+      - name: Install pmbootstrap from source
         run: |
           sudo apt-get update
-          sudo apt-get install -y git python3-pip openssl
-          pip install pmbootstrap
+          sudo apt-get install -y git python3-pip python3-setuptools openssl
+          git clone https://gitlab.postmarketos.org/postmarketOS/pmbootstrap.git
+          cd pmbootstrap
+          sudo pip install . --break-system-packages || sudo python3 setup.py install
+          pmbootstrap --version
 
       - name: Configure pmbootstrap
         run: |
@@ -34,14 +37,12 @@ jobs:
 
       - name: Build Android Recovery ZIP
         run: |
-          # 비버전 설정 및 유저 패스워드 자동 입력 우회 빌드
           echo -e "eunwoo\neunwoo" | pmbootstrap install --android-recovery-zip --password eunwoo
 
       - name: Find and Prepare Output File
         run: |
           mkdir -p output
-          find /home/runner/pmos_work/chroot_native/tmp -name "*.zip" -exec cp {} output/ \; 2>/dev/null || true
-          find /home/runner/pmos_work -name "*herolte*.zip" -exec cp {} output/ \; 2>/dev/null || true
+          find /home/runner/pmos_work -name "*.zip" -exec cp {} output/ \; 2>/dev/null || true
           ls -la output/
 
       - name: Upload Recovery ZIP Artifact
