@@ -26,7 +26,7 @@ jobs:
 
       - name: Configure pmbootstrap
         run: |
-          pmbootstrap -w /home/runner/pmos_work init -y
+          yes "" | pmbootstrap -w /home/runner/pmos_work init
           pmbootstrap -w /home/runner/pmos_work config device samsung-herolte
           pmbootstrap -w /home/runner/pmos_work config ui gnome-mobile
 
