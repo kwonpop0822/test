@@ -26,13 +26,9 @@ jobs:
 
       - name: Configure pmbootstrap
         run: |
-          pmbootstrap -w /home/runner/pmos_work init \
-            --no-interactive \
-            --channel edge \
-            --vendor samsung \
-            --device herolte \
-            --ui gnome-mobile \
-            --timezone Asia/Seoul
+          pmbootstrap -w /home/runner/pmos_work init -y
+          pmbootstrap -w /home/runner/pmos_work config device samsung-herolte
+          pmbootstrap -w /home/runner/pmos_work config ui gnome-mobile
 
       - name: Build Android Recovery ZIP
         run: |
