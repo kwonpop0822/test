@@ -26,11 +26,17 @@ jobs:
 
       - name: Configure pmbootstrap
         run: |
-          printf "/home/runner/pmos_work\nsamsung\nherolte\nyes\ngnome-mobile\nAsia/Seoul\n" | pmbootstrap init
+          pmbootstrap -w /home/runner/pmos_work init \
+            --no-interactive \
+            --channel edge \
+            --vendor samsung \
+            --device herolte \
+            --ui gnome-mobile \
+            --timezone Asia/Seoul
 
       - name: Build Android Recovery ZIP
         run: |
-          echo -e "eunwoo\neunwoo" | pmbootstrap install --android-recovery-zip --password eunwoo
+          echo -e "eunwoo\neunwoo" | pmbootstrap -w /home/runner/pmos_work install --android-recovery-zip --password eunwoo
 
       - name: Find and Prepare Output File
         run: |
