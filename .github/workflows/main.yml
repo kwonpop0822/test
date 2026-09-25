@@ -26,14 +26,7 @@ jobs:
 
       - name: Configure pmbootstrap
         run: |
-          pmbootstrap init \
-            --work /home/runner/pmos_work \
-            --command-line \
-            --vendor samsung \
-            --device herolte \
-            --ui gnome-mobile \
-            --timezone Asia/Seoul \
-            --build-pkgs-on-install false
+          printf "/home/runner/pmos_work\nsamsung\nherolte\nyes\ngnome-mobile\nAsia/Seoul\n" | pmbootstrap init
 
       - name: Build Android Recovery ZIP
         run: |
